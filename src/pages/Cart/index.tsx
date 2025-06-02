@@ -1,6 +1,4 @@
-import React from "react";
 import Navbar from "../../components/navbar";
-import { ArrowLeft } from "lucide-react";
 
 const Cart = () => {
   return (
