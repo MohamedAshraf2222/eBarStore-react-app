@@ -25,7 +25,7 @@ Follow these steps to set up the project locally:
 ### Prerequisites
 
 - Node.js (v14 or higher)
-- npm (v6 or higher) or yarn
+- npm (v6 or higher) 
 - Git (optional)
 
 ### Steps
@@ -42,7 +42,9 @@ Follow these steps to set up the project locally:
     npm install
     
 3.Run the development server:
+
   npm run dev
 
 4. Open the application:
+
    http://localhost:5173
