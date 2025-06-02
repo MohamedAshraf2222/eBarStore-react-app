@@ -105,7 +105,6 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
               <ShoppingCart color="action" />
               <Typography variant="h6">Your Cart</Typography>
               <Badge
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 // badgeContent={items?.reduce((sum: number, item: any) => sum + item.quantity, 0)}
                 color="primary"
                 sx={{ ml: 1 }}
