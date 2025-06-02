@@ -10,7 +10,9 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-
+import { useTranslation } from "react-i18next";
+import { incrementCartItem } from "../../slices/e-barStore/thunk";
+import CartDrawer from "../../components/CartDrawer";
 interface Product {
   id: string;
   weight: string;
@@ -49,12 +51,13 @@ const ProductDetails = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { products } = useSelector((state: any) => state.eBarStore);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch: any = useDispatch();
-
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -88,8 +91,11 @@ const ProductDetails = () => {
     }
   }, [products, id]);
 
-  const handleAddToCart = () => {
-    console.log("Add to cart:", product);
+  const handleAddToCart = async () => {
+    if (product) {
+      await dispatch(incrementCartItem({ bar_id: product.id }));
+      await dispatch(fetchCartIndex());
+    }
   };
 
   const calculatePrice = (product: Product) => {
@@ -99,7 +105,13 @@ const ProductDetails = () => {
   if (error) {
     return (
       <div>
-        <Navbar title="Product Details" backButton={true} showCart={false} />
+        <Navbar
+          title={t("ProductDetails")}
+          backButton={true}
+          showCart={true}
+          isCartOpen={isCartOpen}
+          setIsCartOpen={setIsCartOpen}
+        />
         <Box sx={{ p: 4, textAlign: "center" }}>
           <Typography variant="h6" color="error">
             {error}
@@ -111,7 +123,13 @@ const ProductDetails = () => {
 
   return (
     <div className="bg-slate-900 min-h-screen text-white">
-      <Navbar title="Product Details" backButton={true} showCart={false} />
+      <Navbar
+        title={t("ProductDetails")}
+        backButton={true}
+        showCart={true}
+        isCartOpen={isCartOpen}
+        setIsCartOpen={setIsCartOpen}
+      />
       <Box sx={{ p: 4 }}>
         {loading ? (
           <Box
@@ -158,18 +176,24 @@ const ProductDetails = () => {
               </div>
 
               <div className="w-full md:w-1/2 space-y-6 flex flex-col justify-between">
-                <Typography variant="h3" component="h2" className="text-white !mb-2">
-                  {product.name.en}
+                <Typography
+                  variant="h3"
+                  component="h2"
+                  className="text-white !mb-2"
+                >
+                  {i18n.language === "en" ? product.name.en : product.name.ar}
                 </Typography>
 
                 <Typography variant="body1" className="text-slate-300">
-                  {product.description.en}
+                  {i18n.language === "en"
+                    ? product.description.en
+                    : product.description.ar}
                 </Typography>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Typography variant="subtitle2" className="text-slate-400">
-                      Maker
+                      {t("Maker")}
                     </Typography>
                     <Typography variant="body1" className="text-white">
                       {product.maker}
@@ -178,7 +202,7 @@ const ProductDetails = () => {
 
                   <div>
                     <Typography variant="subtitle2" className="text-slate-400">
-                      Weight
+                      {t("Weight")}
                     </Typography>
                     <Typography variant="body1" className="text-white">
                       {product.weight}
@@ -187,7 +211,7 @@ const ProductDetails = () => {
 
                   <div>
                     <Typography variant="subtitle2" className="text-slate-400">
-                      Karat
+                      {t("Karat")}
                     </Typography>
                     <Typography variant="body1" className="text-white">
                       {product.karat}K ({product.fineness} fineness)
@@ -196,7 +220,7 @@ const ProductDetails = () => {
 
                   <div>
                     <Typography variant="subtitle2" className="text-slate-400">
-                      Cashback
+                      {t("Cashback")}
                     </Typography>
                     <Typography variant="body1" className="text-white">
                       {product.cashback}%
@@ -207,11 +231,6 @@ const ProductDetails = () => {
                 <div className="pt-4">
                   <Typography variant="h4" className="text-amber-500">
                     ${calculatePrice(product)}
-                  </Typography>
-                  <Typography variant="body2" className="text-slate-400">
-                    {product.total > 0
-                      ? `${product.total} available in stock`
-                      : "Out of stock"}
                   </Typography>
                 </div>
 
@@ -232,6 +251,7 @@ const ProductDetails = () => {
           </Paper>
         ) : null}
       </Box>
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 };

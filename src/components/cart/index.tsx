@@ -24,9 +24,10 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 const CartItems = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const { t, i18n } = useTranslation();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch = useDispatch<any>();
 
@@ -139,7 +140,7 @@ const CartItems = () => {
                         <div className="flex flex-col w-full">
                           <ListItemText
                             className="text-white "
-                            primary={item?.bar.name.en}
+                            primary={i18n.language === "en" ? item?.bar.name.en : item?.bar.name.ar}
                           />
                           <ListItemText
                             primary={
@@ -223,7 +224,7 @@ const CartItems = () => {
                     mb: 2,
                   }}
                 >
-                  <Typography className="text-gray-400">Subtotal</Typography>
+                  <Typography className="text-gray-400">{t("Subtotal")}</Typography>
                   <Typography variant="h6" className="text-amber-400">
                     ${subtotal.toFixed(2)}
                   </Typography>
@@ -242,7 +243,7 @@ const CartItems = () => {
                     fullWidth
                     onClick={handleClearCart}
                   >
-                    Clear Cart
+                    {t("ClearCart")}
                   </Button>
                   <Link to="/cart" className="w-full">
                     <Button
@@ -250,7 +251,7 @@ const CartItems = () => {
                       className="!bg-amber-400 text-white w-full hover:!bg-amber-500"
                       fullWidth
                     >
-                      Checkout
+                      {t("Checkout")}
                     </Button>
                   </Link>
                 </Box>

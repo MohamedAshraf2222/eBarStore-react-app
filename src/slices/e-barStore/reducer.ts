@@ -18,6 +18,8 @@ interface CartItem {
 interface EBarStoreState {
   products: Product[];
   cartItems: CartItem[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  cartPrices: any;
   error: string | null;
   loading: boolean;
   submitLoading: boolean;
@@ -27,6 +29,7 @@ interface EBarStoreState {
 export const initialState: EBarStoreState = {
   products: [],
   cartItems: [],
+  cartPrices: {},
   error: null,
   loading: false,
   submitLoading: false,
@@ -102,6 +105,7 @@ const eBarStoreSlice = createSlice({
       state.loading = false;
       // console.log(action.payload.Cart.items);
       state.cartItems = action.payload.Cart.items;
+      state.cartPrices = action.payload.Cart.prices;
     });
     builder.addCase(fetchCartIndex.rejected, (state, action) => {
       state.loading = false;

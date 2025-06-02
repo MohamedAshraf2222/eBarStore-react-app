@@ -8,6 +8,7 @@ import {
 import { ShoppingCart } from "@mui/icons-material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 export default function MediaCard({
   id,
   image,
@@ -16,11 +17,15 @@ export default function MediaCard({
 }: {
   id: string;
   image: string;
-  title: string;
+  title: {
+    en: string;
+    ar: string;
+  };
   price: number;
 }) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch: any = useDispatch();
+  const { i18n } = useTranslation();
 
   const handleAddToCart = async (bar_id: string) => {
     await dispatch(incrementCartItem({ bar_id }));
@@ -32,14 +37,20 @@ export default function MediaCard({
         <div className="relative overflow-hidden aspect-[3/4] cursor-pointer">
           <img
             src={image}
-            alt={title}
+            alt={i18n.language === "en" ? title?.en : title?.ar}
             className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 "
           />
         </div>
 
         <CardContent className="p-4 flex flex-col space-y-3 bg-slate-900">
           <h3 className="font-bold text-lg line-clamp-2 text-white">
-            {title.length > 10 ? title.substring(0, 10) + "..." : title}
+            {i18n.language === "en"
+              ? title?.en.length > 10
+                ? title?.en.substring(0, 10) + "..."
+                : title?.en
+              : title?.ar.length > 10
+              ? title?.ar.substring(0, 10) + "..."
+              : title?.ar}
           </h3>
 
           <span className="text-amber-400 font-semibold text-xl">

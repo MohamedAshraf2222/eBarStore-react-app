@@ -1,6 +1,7 @@
 import { ToastContainer } from 'react-toastify';
 import { Route, Routes } from 'react-router-dom';
 import { Home, Cart, NotFound, ProductDetails } from './pages';
+import "./i18n.ts";
 function App() {
   return (
     <>

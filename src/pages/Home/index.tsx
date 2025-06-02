@@ -7,7 +7,9 @@ import Navbar from "../../components/navbar";
 import CartDrawer from "../../components/CartDrawer";
 import CircularProgress from "@mui/material/CircularProgress";
 import CurrentGoldPrice from "../../components/UI/CurrentGoldPrice";
+import { useTranslation } from "react-i18next";
 const Home = () => {
+  const { t } = useTranslation();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch: any = useDispatch();
 
@@ -35,41 +37,37 @@ const Home = () => {
           backButton={false}
           showCart={true}
         />
-        <CurrentGoldPrice/>
+        {!loading && <CurrentGoldPrice />}
 
         <div className="bg-gray-900 w-full p-4 md:p-6">
-          <div className="container mx-auto px-4 py-8">
-            <h2 className="text-3xl font-bold mb-8 text-center">
-              E-Bar Products
-            </h2>
-          </div>
           {loading ? (
             <div className="flex justify-center items-center h-screen">
               <CircularProgress size={24} sx={{ mr: 2 }} />
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {products.map((product: any) => (
-                <MediaCard
-                  key={product.id}
-                  id={product.id}
-                  image={product.image}
-                  title={product.name.en}
-                  price={product.total}
-                />
-              ))}
-            </div>
+            <>
+              <div className="container mx-auto px-4 py-8">
+                <h2 className="text-3xl font-bold mb-8 text-center">
+                  {t("E-BarProducts")}
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {products.map((product: any) => (
+                  <MediaCard
+                    key={product.id}
+                    id={product.id}
+                    image={product.image}
+                    title={product.name}
+                    price={product.total}
+                  />
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        // items={cartItems}
-        // onUpdateQuantity={updateQuantity}
-        // onClearCart={clearCart}
-      />
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
 };
