@@ -1,15 +1,14 @@
 import { ToastContainer } from 'react-toastify';
 import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Cart from './pages/Cart';
-
+import { Home, Cart, NotFound, ProductDetails } from './pages';
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="*" element={<div className='text-center text-2xl font-bold text-red-500'>404 Page Not Found</div>} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
         <ToastContainer
         position="top-right"

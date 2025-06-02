@@ -79,13 +79,14 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
       }}
     >
       {/* Loading */}
-      {loading ? (
-        <div className="flex justify-center text-white items-center h-full w-full bg-gray-900">
+      {loading && (
+        <div className="flex justify-center absolute top-0 left-0 text-white items-center h-full w-full bg-black/70 z-10">
           <div className="text-center">
             <CircularProgress size={24} sx={{ mr: 2 }} />
           </div>
         </div>
-      ) : (
+      )}
+      {items?.length > 0 && (
         <Box
           sx={{ display: "flex", flexDirection: "column", height: "100%" }}
           className="!bg-gray-900 text-white"
@@ -102,7 +103,8 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             }}
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <ShoppingCart color="action" />
+              <ShoppingCart className="h-6 w-6 text-amber-500" />
+
               <Typography variant="h6">Your Cart</Typography>
               <Badge
                 // badgeContent={items?.reduce((sum: number, item: any) => sum + item.quantity, 0)}
@@ -234,6 +236,10 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                         />
                       </div>
                     </ListItem>
+                    <Typography className="text-amber-400" fontWeight="bold">
+                      {item.quantity} * {item.total.toFixed(2) / item.quantity}{" "}
+                      = ${item.total.toFixed(2)}
+                    </Typography>
                   </Paper>
                 ))}
               </List>

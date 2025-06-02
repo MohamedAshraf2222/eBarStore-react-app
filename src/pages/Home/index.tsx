@@ -6,6 +6,7 @@ import MediaCard from "../../components/card";
 import Navbar from "../../components/navbar";
 import CartDrawer from "../../components/CartDrawer";
 import CircularProgress from "@mui/material/CircularProgress";
+import CurrentGoldPrice from "../../components/UI/CurrentGoldPrice";
 const Home = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dispatch: any = useDispatch();
@@ -34,6 +35,7 @@ const Home = () => {
           backButton={false}
           showCart={true}
         />
+        <CurrentGoldPrice/>
 
         <div className="bg-gray-900 w-full p-4 md:p-6">
           <div className="container mx-auto px-4 py-8">
