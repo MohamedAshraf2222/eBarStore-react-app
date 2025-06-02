@@ -34,7 +34,7 @@ export default function MediaCard({id, image, title, price }: { id: string; imag
 
             <button
               onClick={() => handleAddToCart(id)}
-              className="cursor-pointer bg-amber-500 hover:bg-amber-600 text-black rounded-full"
+              className="cursor-pointer px-2 bg-amber-500 hover:bg-amber-600 text-black rounded-full"
             >
               <ShoppingCart className="h-4 w-4 mr-1" />
               Add
