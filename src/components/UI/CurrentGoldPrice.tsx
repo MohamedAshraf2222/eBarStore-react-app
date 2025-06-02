@@ -11,11 +11,11 @@ const CurrentGoldPrice = () => {
       {/* Gold Price Banner */}
       <div className="bg-gradient-to-r from-amber-600 to-amber-500 text-gray-900 py-4">
         <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center space-x-4">
-            <span className="text-lg font-semibold">
+          <div className="flex items-center justify-center space-x-2 md:space-x-4">
+            <span className="text-sm md:text-lg font-semibold">
               Current Gold Price (per gm):
             </span>
-            <span className="text-2xl font-bold">
+            <span className="text-lg md:text-2xl font-bold">
               ${currentGoldPrice?.toFixed(2)}
             </span>
             

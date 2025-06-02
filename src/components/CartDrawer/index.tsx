@@ -237,8 +237,9 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                       </div>
                     </ListItem>
                     <Typography className="text-amber-400" fontWeight="bold">
-                      {item.quantity} * {item.total.toFixed(2) / item.quantity}{" "}
-                      = ${item.total.toFixed(2)}
+                      {item.quantity} *{" "}
+                      {(item.total / item.quantity).toFixed(2)} = $
+                      {item.total.toFixed(2)}
                     </Typography>
                   </Paper>
                 ))}
