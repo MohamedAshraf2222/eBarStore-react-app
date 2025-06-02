@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { clearCart, fetchCartIndex, getProducts } from '../../slices/e-barStore/thunk';
+import {  fetchCartIndex, getProducts } from '../../slices/e-barStore/thunk';
 import { useDispatch } from 'react-redux';
 import MediaCard from '../../components/card';
 import Navbar from '../../components/navbar';

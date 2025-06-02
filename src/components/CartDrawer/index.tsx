@@ -10,7 +10,6 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
-
   Button,
   Badge,
   Paper,
@@ -28,7 +27,6 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-
 interface CartDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -36,7 +34,8 @@ interface CartDrawerProps {
 
 const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dispatch = useDispatch<any>();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { cartItems: items } = useSelector((state: any) => state.eBarStore);
@@ -131,10 +130,9 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                   py: 8,
                 }}
               >
-                <ShoppingCart
-                  className="text-white"
-                  sx={{ fontSize: 64, opacity: 0.3, mb: 2 }}
-                />
+                <Box sx={{ fontSize: 64, opacity: 0.3, mb: 2 }}>
+                  <ShoppingCart className="text-white" />
+                </Box>
                 <Typography className="text-white" variant="h6">
                   Your cart is empty
                 </Typography>
@@ -178,65 +176,63 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                         />
                       </ListItemAvatar>
                       <div className="flex flex-col w-full">
-                      <ListItemText
-                        className="text-white "
-                        primary={item?.bar.name.en}
+                        <ListItemText
+                          className="text-white "
+                          primary={item?.bar.name.en}
                         />
                         <ListItemText
-                        
-                        primary={
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "space-between",
-                              mt: 1,
-                            }}
-                          >
-                            <div className="flex w-full justify-between items-center">
-                              <Box
-                                className="flex items-center !bg-gray-800 text-white rounded-md"
+                          primary={
+                            <Box
                               sx={{
                                 display: "flex",
                                 alignItems: "center",
-                                bgcolor: "background.default",
-                                borderRadius: 1,
+                                justifyContent: "space-between",
+                                mt: 1,
                               }}
                             >
-                              <IconButton
-                                size="small"
-                                onClick={() => handleDecrement(item.bar.id)}
-                                disabled={item.quantity <= 1}
+                              <div className="flex w-full justify-between items-center">
+                                <Box
+                                  className="flex items-center !bg-gray-800 text-white rounded-md"
+                                  sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    bgcolor: "background.default",
+                                    borderRadius: 1,
+                                  }}
+                                >
+                                  <IconButton
+                                    size="small"
+                                    onClick={() => handleDecrement(item.bar.id)}
+                                    disabled={item.quantity <= 1}
+                                  >
+                                    <Minus
+                                      fontSize="small"
+                                      className="text-gray-400 hover:text-white"
+                                    />
+                                  </IconButton>
+                                  <Typography sx={{ mx: 1 }}>
+                                    {item?.quantity}
+                                  </Typography>
+                                  <IconButton
+                                    size="small"
+                                    onClick={() => handleIncrement(item.bar.id)}
+                                  >
+                                    <Plus
+                                      fontSize="small"
+                                      className="text-gray-400 hover:text-white"
+                                    />
+                                  </IconButton>
+                                </Box>
+                              </div>
+                              <Typography
+                                className="text-amber-400"
+                                fontWeight="bold"
                               >
-                                <Minus
-                                  fontSize="small"
-                                  className="text-gray-400 hover:text-white"
-                                />
-                              </IconButton>
-                              <Typography sx={{ mx: 1 }}>
-                                {item?.quantity}
+                                ${item.total.toFixed(2)}
                               </Typography>
-                              <IconButton
-                                size="small"
-                                onClick={() => handleIncrement(item.bar.id)}
-                              >
-                                <Plus
-                                  fontSize="small"
-                                  className="text-gray-400 hover:text-white"
-                                />
-                              </IconButton>
                             </Box>
-                            </div>
-                            <Typography
-                              className="text-amber-400"
-                              fontWeight="bold"
-                            >
-                              ${item.total.toFixed(2)}
-                            </Typography>
-                            
-                            </Box>
-                        }
-                      />
+                          }
+                        />
                       </div>
                     </ListItem>
                   </Paper>
@@ -260,8 +256,14 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                   ${subtotal.toFixed(2)}
                 </Typography>
               </Box>
-              <Divider sx={{ my: 1}} />
-              <Box sx={{ display: "flex", justifyContent: "space-between", gap: 2 }}>
+              <Divider sx={{ my: 1 }} />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: 2,
+                }}
+              >
                 <Button
                   variant="outlined"
                   color="error"
@@ -270,9 +272,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                 >
                   Clear Cart
                 </Button>
-                <Link to="/cart"
-                className="w-full"
-                >
+                <Link to="/cart" className="w-full">
                   <Button
                     variant="contained"
                     className="!bg-amber-400 text-white w-full hover:!bg-amber-500"

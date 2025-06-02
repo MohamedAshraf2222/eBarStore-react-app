@@ -69,7 +69,6 @@ apiClient.interceptors.response.use(
 
 export interface cartItems {
   bar_id: string;
-  action: "INCREMENT" | "DECREMENT" | "DELETE";
 }
 // API methods
 const api = {
