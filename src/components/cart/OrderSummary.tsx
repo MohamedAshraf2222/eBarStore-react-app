@@ -5,21 +5,20 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 const OrderSummary = () => {
   const { t } = useTranslation();
-  const { cartItems: items, cartPrices } = useSelector(
+  const { cartItems } = useSelector(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (state: any) => state.eBarStore
   );
-  console.log(cartPrices);
-  const totalItems = items?.reduce(
+  const totalItems = cartItems?.items?.reduce(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (sum: number, item: any) => sum + item.quantity,
     0
   );
-  const subtotal = items?.reduce(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (sum: number, item: any) => sum + item.total,
-    0
-  );
+//   const subtotal = cartItems?.items?.reduce(
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//     (sum: number, item: any) => sum + item.total,
+//     0
+//   );
   return (
     <div className="lg:col-span-1 ">
       <Card className="!bg-gray-800 border-gray-800 sticky top-24 !rounded-lg  shadow-md mx-4 mb-10 lg:mb-0 ">
@@ -35,15 +34,17 @@ const OrderSummary = () => {
               <span>
                 {t("Subtotal")} ({totalItems} {t("items")})
               </span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>
+                ${+(cartItems?.prices?.gold_sub_total || 0).toFixed(2)}
+              </span>
             </div>
             <div className="flex justify-between text-gray-400">
               <span>{t("Shipping")}</span>
-              <span>${cartPrices?.delivery_fee.toFixed(2)}</span>
+              <span>${+(cartItems?.prices?.delivery_fee || 0).toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-gray-400">
               <span>{t("DigitalFees")}</span>
-              <span>${cartPrices?.digital_fees.toFixed(2)}</span>
+              <span>${+(cartItems?.prices?.digital_fees || 0).toFixed(2)}</span>
             </div>
           </div>
 
@@ -53,7 +54,7 @@ const OrderSummary = () => {
           <div className="flex justify-between text-xl font-bold">
             <span className="text-white">{t("Total")}</span>
             <span className="text-amber-400">
-              ${cartPrices?.grand_total.toFixed(2)}
+              ${+(cartItems?.prices?.grand_total || 0).toFixed(2)}
             </span>
           </div>
 

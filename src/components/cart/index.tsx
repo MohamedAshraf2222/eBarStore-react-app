@@ -55,11 +55,11 @@ const CartItems = () => {
     setLoading(false);
   };
 
-  const subtotal = items?.reduce(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (sum: number, item: any) => sum + item.total,
-    0
-  );
+//   const subtotal = items?.items?.reduce(
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//     (sum: number, item: any) => sum + item.total,
+//     0
+//   );
 
   return (
     <>
@@ -73,14 +73,14 @@ const CartItems = () => {
             </div>
           </div>
         )}
-        {items?.length > 0 && (
+        {items?.items?.length > 0 && (
           <Box
             sx={{ display: "flex", flexDirection: "column", height: "100%" }}
             className="!bg-gray-900 text-white"
           >
             {/* Cart Items */}
             <Box sx={{ flex: 1, overflow: "auto", p: 2 }}>
-              {items?.length === 0 ? (
+              {items?.items?.length === 0 ? (
                 <Box
                   sx={{
                     display: "flex",
@@ -110,7 +110,7 @@ const CartItems = () => {
               ) : (
                 <List>
                   {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                  {items?.map((item: any) => (
+                  {items?.items?.map((item: any) => (
                     <Paper
                       key={item.id}
                       elevation={0}
@@ -194,7 +194,7 @@ const CartItems = () => {
                                   className="text-amber-400"
                                   fontWeight="bold"
                                 >
-                                  ${item.total.toFixed(2)}
+                                  ${+(item.total || 0).toFixed(2)}
                                 </Typography>
                               </Box>
                             }
@@ -203,8 +203,8 @@ const CartItems = () => {
                       </ListItem>
                       <Typography className="text-amber-400" fontWeight="bold">
                         {item.quantity} *{" "}
-                        {item.total.toFixed(2) / item.quantity} = $
-                        {item.total.toFixed(2)}
+                        {+(item.total || 0).toFixed(2) / item.quantity} = $
+                        {+(item.total || 0).toFixed(2)}
                       </Typography>
                     </Paper>
                   ))}
@@ -213,7 +213,7 @@ const CartItems = () => {
             </Box>
 
             {/* Footer */}
-            {items?.length > 0 && (
+            {items?.items?.length > 0 && (
               <Box
                 sx={{ p: 2, borderTop: "1px solid", borderColor: "divider" }}
               >
@@ -226,7 +226,7 @@ const CartItems = () => {
                 >
                   <Typography className="text-gray-400">{t("Subtotal")}</Typography>
                   <Typography variant="h6" className="text-amber-400">
-                    ${subtotal.toFixed(2)}
+                    ${+(items?.prices?.gold_sub_total || 0).toFixed(2)}
                   </Typography>
                 </Box>
                 <Divider sx={{ my: 1 }} />

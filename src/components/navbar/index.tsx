@@ -28,9 +28,9 @@ const Navbar = ({
     i18n.changeLanguage(newLang);
   };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { cartItems: items } = useSelector((state: any) => state.eBarStore);
+  const { cartItems } = useSelector((state: any) => state.eBarStore);
 
-  const totalItems = items?.reduce(
+  const totalItems = cartItems?.items?.reduce(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (sum: number, item: any) => sum + item.quantity,
     0
@@ -63,7 +63,7 @@ const Navbar = ({
             <div className="flex items-center space-x-4 mx-4">
               <button className="relative cursor-pointer" onClick={toggleCart}>
                 <ShoppingCart className="h-6 w-6 text-amber-500" />
-                {items?.length > 0 && (
+                {cartItems?.items?.length > 0 && (
                   <Box className="absolute rounded-full -top-3 -right-4 p-2 leading-2 bg-amber-500 text-gray-900 hover:bg-amber-400">
                     {totalItems}
                   </Box>

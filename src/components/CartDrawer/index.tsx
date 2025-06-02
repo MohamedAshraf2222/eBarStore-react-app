@@ -64,7 +64,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
 
   const { t, i18n } = useTranslation();
   
-  const subtotal = items?.reduce(
+  const subtotal = items?.items?.reduce(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (sum: number, item: any) => sum + item.total,
     0
@@ -121,7 +121,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
 
         {/* Cart Items */}
         <Box sx={{ flex: 1, overflow: "auto", p: 2 }}>
-          {items?.length === 0 ? (
+          {items?.items?.length === 0 ? (
             <Box
               sx={{
                 display: "flex",
@@ -155,7 +155,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
           ) : (
             <List>
               {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {items?.map((item: any) => (
+              {items?.items?.map((item: any) => (
                 <Paper
                   key={item.id}
                   elevation={0}
@@ -239,7 +239,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                               className="text-amber-400"
                               fontWeight="bold"
                             >
-                              ${item.total.toFixed(2)}
+                              ${(item.total || 0).toFixed(2)}
                             </Typography>
                           </Box>
                         }
@@ -248,7 +248,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                   </ListItem>
                   <Typography className="text-amber-400" fontWeight="bold">
                     {item.quantity} * {(item.total / item.quantity).toFixed(2)}{" "}
-                    = ${item.total.toFixed(2)}
+                    = ${+(item.total || 0).toFixed(2)}
                   </Typography>
                 </Paper>
               ))}
@@ -257,7 +257,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
         </Box>
 
         {/* Footer */}
-        {items?.length > 0 && (
+        {items?.items?.length > 0 && (
           <Box sx={{ p: 2, borderTop: "1px solid", borderColor: "divider" }}>
             <Box
               sx={{
@@ -268,7 +268,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             >
               <Typography className="text-gray-400">Subtotal</Typography>
               <Typography variant="h6" className="text-amber-400">
-                ${subtotal.toFixed(2)}
+                ${+(subtotal || 0).toFixed(2)}
               </Typography>
             </Box>
             <Divider sx={{ my: 1 }} />
