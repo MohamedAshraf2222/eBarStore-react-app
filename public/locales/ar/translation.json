@@ -1,6 +1,6 @@
 {
   "CurrentGoldPrice": "السعر الحالي للذهب (لكل جرام):",
-  "LastUpdated":"آخر تحديث :",
+  "LastUpdated": "آخر تحديث :",
   "Weight": "الوزن",
   "Karat": "الكارات",
   "Cashback": "المبلغ المسترد",
@@ -21,5 +21,8 @@
   "E-BarProducts": "E-Bar منتجات",
   "ShoppingCart": "عربة التسوق",
   "YourCart": "عربة التسوق",
-  "DigitalFees": "الرسوم الرقمية"
+  "DigitalFees": "الرسوم الرقمية",
+  "Add": "أضف",
+  "View": "أعرض",
+  "AddToCart": "أضف الي العربة"
 }

@@ -52,6 +52,7 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+  const [buttonLoading, setButtonLoading] = useState<boolean>(false);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { products } = useSelector((state: any) => state.eBarStore);
@@ -93,7 +94,9 @@ const ProductDetails = () => {
 
   const handleAddToCart = async () => {
     if (product) {
+      setButtonLoading(true);
       await dispatch(incrementCartItem({ bar_id: product.id }));
+      setButtonLoading(false);
       await dispatch(fetchCartIndex());
     }
   };
@@ -243,7 +246,16 @@ const ProductDetails = () => {
                     disabled={product.total <= 0}
                     className="!bg-amber-600 hover:!bg-amber-700 w-full"
                   >
-                    Add to Cart
+                    {buttonLoading ? (
+                      <>
+                        <CircularProgress
+                          className="!text-gray-500"
+                          size={25}
+                        />
+                      </>
+                    ) : (
+                      <>{t("AddToCart")}</>
+                    )}
                   </Button>
                 </div>
               </div>
